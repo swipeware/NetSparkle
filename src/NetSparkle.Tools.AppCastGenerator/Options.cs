@@ -30,8 +30,12 @@ namespace NetSparkleUpdater.AppCastGenerator
         [Option('f', "file-extract-version", SetName = "local", Required = false, HelpText = "Determine the version from the file path. Tries each string in between directory separators that contains a version number starting from the end of the path. Only searches the last four directory items (incl. the file name) and does not search 'above' the binary directory (-b option). See unit tests for what is parseable.", Default = false)]
         public bool FileExtractVersion { get; set; }
 
-        [Option("file-version", SetName="local", Required = false, HelpText = "Use to set the version for a binary going into an app cast. Note that this version can only be set once, so when generating an app cast, make sure you either: A) have only one binary in your app cast | B) Utilize the --reparse-existing parameter so that old items get picked up. If the generator finds 2 binaries without any known version and --file-version is set, then an error will be emitted.", Default = null)]
+        [Option("file-version", SetName = "local", Required = false, HelpText = "Use to set the version for a binary going into an app cast. Note that this version can only be set once, so when generating an app cast, make sure you either: A) have only one binary in your app cast | B) Utilize the --reparse-existing parameter so that old items get picked up. If the generator finds 2 binaries without any known version and --file-version is set, then an error will be emitted.", Default = null)]
         public string? FileVersion { get; set; }
+
+        [Option("override-version", SetName = "local", Required = false, HelpText = "Use to force the version for a binary going into an app cast. " +
+                "(single-file appcast only)", Default = null)]
+        public string? OverrideVersion { get; set; }
 
         [Option('o', "os", Required = false, HelpText = "Operating System (string must contain one of the following: windows, mac, linux; can be string such as 'windows-arm64')", Default = "windows")]
         public string? OperatingSystem { get; set; }
@@ -52,6 +56,10 @@ namespace NetSparkleUpdater.AppCastGenerator
         [Option('p', "change-log-path", SetName = "local", Required = false, HelpText = "File path to Markdown changelog files (expected extension: .md; " +
             "version must match AssemblyVersion, e.g. MyApp 1.0.0.md).", Default = "")]
         public string? ChangeLogPath { get; set; }
+
+        [Option("change-log-file", SetName = "local", Required = false, HelpText = "File to be used for releaseNotesLink (usually html for " +
+                "single-file appcasts)", Default = "")]
+        public string? ChangeLogFile { get; set; }
 
         [Option("change-log-name-prefix", SetName = "local", Required = false, HelpText = "Prefix for change log file names. By default, the generator searches for file names with the format \"[Version].md\". If you set this to (for example) \"My App\", it will search for file names with the format \"My App [Version].md\" as well as \"[Version].md\".", Default = "")]
         public string? ChangeLogFileNamePrefix { get; set; }

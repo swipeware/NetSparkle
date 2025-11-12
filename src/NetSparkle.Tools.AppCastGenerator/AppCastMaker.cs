@@ -361,7 +361,7 @@ namespace NetSparkleUpdater.AppCastGenerator
             var changelogFileName = "";
             if (_opts.ChangeLogPath != null && !string.IsNullOrWhiteSpace(_opts.ChangeLogPath))
             {
-                changelogFileName = fullProductVersionString + ".md";
+                changelogFileName = string.IsNullOrEmpty(_opts.ChangeLogFile) ? fullProductVersionString + ".md" : _opts.ChangeLogFile;
                 changelogPath = useChangelogs ? Path.Combine(_opts.ChangeLogPath, changelogFileName) : "";
                 hasChangelogForFile = useChangelogs && File.Exists(changelogPath);
                 if (useChangelogs && !hasChangelogForFile && !string.IsNullOrWhiteSpace(changelogFileNamePrefix))
@@ -406,7 +406,7 @@ namespace NetSparkleUpdater.AppCastGenerator
             {
                 Title = itemTitle?.Trim(),
                 DownloadLink = remoteUpdateFile?.Trim(),
-                Version = fullProductVersionString?.Trim(),
+                Version = string.IsNullOrEmpty(_opts.OverrideVersion) ? fullProductVersionString?.Trim() : _opts.OverrideVersion,
                 ShortVersion = productVersion.Version,
                 PublicationDate = binaryFileInfo.CreationTime,
                 UpdateSize = binaryFileInfo.Length,
@@ -422,7 +422,7 @@ namespace NetSparkleUpdater.AppCastGenerator
                 if (!string.IsNullOrWhiteSpace(_opts.ChangeLogUrl))
                 {
                     item.ReleaseNotesSignature = changelogSignature;
-                    item.ReleaseNotesLink = Path.Combine(_opts.ChangeLogUrl, changelogFileName).Trim();
+                    item.ReleaseNotesLink = new Uri(new Uri(_opts.ChangeLogUrl), changelogFileName).ToString();
                 }
                 else
                 {

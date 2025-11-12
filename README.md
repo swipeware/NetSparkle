@@ -12,6 +12,15 @@
 
 # 
 
+> ⚠️ **NOTE:** This is a fork of the original NetSparkle repo.
+> 
+> I've added two extra options to the Appcast generator to help create single-file appcasts:  
+>
+>| Option | Description |
+>|:--|:--|
+>| `--override-version` | Force `<sparkle:version>` without affecting `shortVersionString`. |
+>| `--change-log-file` | Use this filename (usually HTML) instead of a version markdown file. |
+
 NetSparkle is a highly-configurable software update framework for C# that is compatible with .NET 6+ and .NET Framework 4.6.2+, has pre-built UIs for .NET Framework (WinForms, WPF) and .NET 6+ (WinForms, WPF, Avalonia), uses Ed25519 or other cryptographic signatures, and even allows for custom UIs or no built-in UI at all! You provide, somewhere on the internet, an [app cast](#app-cast) with update and version information, along with release notes in Markdown or HTML format. This library then helps you check for an update, show the user the release notes, and offer to download/install the new version of the software.
 
 Built-in supported update download types:
